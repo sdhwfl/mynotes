@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-2.0.3.js"></script>
+    <title>左右混动</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul li {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            height: 200px;
+            width: 420px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container ul {
+            height: 150px;
+            width: 840px;
+            position: absolute;
+            left: 0px;
+            top: 40px;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .container ul li {
+            display: inline-block;
+            height: 150px;
+            width: 100px;
+            float: left;
+            margin-left: 5px;
+        }
+        .container ul li:nth-child(2n-1){
+            border-top: solid 2px deepskyblue;
+        }
+        .container ul li:nth-child(2n){
+            border-top: solid 2px deeppink;
+        }
+        .container ul li img {
+            height: 150px;
+            width: 100px;
+        }
+
+        .container button {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            border: solid 1px #999a9b;
+            float: right;
+            color: #aaa;
+        }
+
+        .container button:hover {
+            color: orange;
+            border: solid 1px orangered;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <button id="left">＞</button>
+    <button id="right">＜</button>
+    <ul class="ul">
+        <li><img src="images/1.jpg" alt=""></li>
+        <li><img src="images/2.jpg" alt=""></li>
+        <li><img src="images/3.jpg" alt=""></li>
+        <li><img src="images/4.jpg" alt=""></li>
+        <li><img src="images/5.jpg" alt=""></li>
+        <li><img src="images/6.jpg" alt=""></li>
+        <li><img src="images/7.jpg" alt=""></li>
+        <li><img src="images/8.jpg" alt=""></li>
+    </ul>
+</div>
+<script>
+    $(function () {
+        $('#left').click(function () {
+            $('.ul').animate({
+                left: '-420px',
+            })
+        })
+        $('#right').click(function () {
+            $('.ul').animate({
+                left: '0px'
+            })
+        })
+        var num = 0;
+        function setTimer() {
+//            timer = setInterval(function() {
+                num++
+                num = num % 2;
+                $(".ul").animate({
+                    left: -420 * num + "px"
+                });
+//            },3000);
+        }
+   var timer=setInterval(setTimer,3000);
+        $(".ul").hover(function() {
+            clearInterval(timer)
+        },function(){
+            timer=setInterval(setTimer,3000)
+        })
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-2.0.3.js"></script>
+    <title>列表切换</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+
+        ul li {
+            list-style: none;
+            padding: 0;
+        }
+
+        .container {
+            width: 800px;
+            margin: 200px auto;
+            /*border: solid 1px red;*/
+        }
+
+        .container .nameList {
+            height: 60px;
+            width: 800px;
+            text-align: right;
+        }
+
+        .container .nameList li {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+
+        .container .imgList {
+            height: 300px;
+            width: 800px;
+            display: none;
+        }
+
+        .container .imgList li {
+            display: inline-block;
+            height: 240px;
+            width: 180px;
+            float: left;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .container .imgList li .intro {
+            height: 60px;
+            line-height: 60px;
+            width: 180px;
+            background-color: #ff6700;
+            position: absolute;
+            bottom: -2px;
+            color: #fff;
+            text-align: center;
+            display: none;
+        }
+
+        .container .imgList li:first-child {
+            border-top: 2px solid #ffac13;
+        }
+
+        .container .imgList li:nth-child(2) {
+            border-top: 2px solid #83c44e;
+        }
+
+        .container .imgList li:nth-child(3) {
+            border-top: 2px solid #2196f3;
+        }
+
+        .container .imgList li:last-child {
+            border-top: 2px solid #e53935;
+        }
+
+        .container .imgList li:hover {
+            transform: translateY(2px);
+            box-shadow: 0px 0px 10px #333;
+        }
+
+        .container .imgList li img {
+            height: 240px;
+            width: 180px;
+        }
+
+        .nameActive {
+            color: #ff6700;
+            border-bottom: solid 2px #ff6700;
+        }
+
+        .active {
+            color: #ff6700;
+            border-bottom: 2px solid #ff6700;
+            display: block;
+            cursor: pointer;
+        }
+
+        #container .onActive {
+            display: block;
+        }
+
+    </style>
+    +
+</head>
+<script>
+    $(function () {
+        $('.nameList li').mouseover(function () {
+            $(this).addClass('active').siblings().removeClass('active').eq(0).removeClass('nameActive');
+            var index = $(this).index();
+//            方法一
+//            $('.imgList').eq(index).show().siblings().not('.nameList').hide();
+//             方法二
+//            $('.imgList').eq(index).addClass('onActive').siblings().removeClass('onActive');
+//            方法三 最优
+            $('.imgList').eq(index).css('display', 'block').siblings().not('.nameList').css('display', 'none');
+        })
+
+        $('.imgList li').mouseover(function(){
+            $(this).find('.intro').stop().slideDown();
+        })
+        $('.imgList li').mouseout(function(){
+            $(this).find('.intro').stop().slideUp();
+        })
+    })
+</script>
+<body>
+<div class="container" id="container">
+    <ul class="nameList ">
+        <li class="nameActive">刘亦菲</li>
+        <li>胡歌</li>
+        <li>李一桐</li>
+    </ul>
+    <ul class="imgList onActive">
+        <li>
+            <img src="images/l1.jpg" alt="">
+            <div class="intro">刘亦菲</div>
+        </li>
+        <li><img src="images/l2.jpg" alt="">
+            <div class="intro">刘亦菲</div>
+        </li>
+        <li><img src="images/l3.jpg" alt="">
+            <div class="intro">刘亦菲</div>
+        </li>
+        <li><img src="images/l4.jpg" alt="">
+            <div class="intro">刘亦菲</div>
+        </li>
+    </ul>
+
+    <ul class="imgList">
+        <li><img src="images/7.jpg" alt="">
+            <div class="intro">胡歌</div>
+        </li>
+        <li><img src="images/2.jpg" alt="">
+            <div class="intro">胡歌</div>
+        </li>
+        <li><img src="images/3.jpg" alt="">
+            <div class="intro">胡歌</div>
+        </li>
+        <li><img src="images/4.jpg" alt="">
+            <div class="intro">胡歌</div>
+        </li>
+    </ul>
+
+    <ul class="imgList">
+        <li><img src="images/t1.jpg" alt="">
+            <div class="intro">李一桐</div>
+        </li>
+        <li><img src="images/t2.jpg" alt="">
+            <div class="intro">李一桐</div>
+        </li>
+        <li><img src="images/t3.jpg" alt="">
+            <div class="intro">李一桐</div>
+        </li>
+        <li><img src="images/t4.jpg" alt="">
+            <div class="intro">李一桐</div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

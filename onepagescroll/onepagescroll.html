@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>onePageScroll</title>
+    <link rel="stylesheet" href="css/onepage-scroll.css">
+    <script src="js/jquery-2.0.3.js"></script>
+    <script src="js/onepage-scroll.min.js"></script>
+    <script src="js/resizeEnd.min.js"></script>
+    <script src="js/custom.07427.js"></script>
+    <script src="js/hm.baidu.comh.js"></script>
+    <style>
+       /*使用方法把相应的文档引用过来，再根据自己的需要添加内容
+       在body里面每添加一个类名为page的容器就会增加一页*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /*这里的最小宽度根据自己的需要设置*/
+            min-width:800px;
+            font-family: "微软雅黑";
+        }
+
+        .loading .main {
+            opacity: 0;
+        }
+
+        .main {
+            -webkit-transition: opacity .6s;
+            -moz-transition: opacity .6s;
+            -o-transition: opacity .6s;
+            transition: opacity .6s;
+        }
+
+        .page {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /*第一页*/
+
+        .page1 {
+            background: url(images/1.jpeg);
+            background-size: 100%;
+        }
+
+
+        /*第二页*/
+
+        .page2 {
+            background-image: url(images/2.jpeg);
+            background-size: 100%;
+        }
+
+
+        /*第三页*/
+
+        .page3 {
+            background-image: url(images/3.jpeg);
+            background-size: 100%;
+        }
+
+        /*第四页*/
+
+        .page4 {
+            background-image: url(images/4.jpeg);
+            background-size: 100%;
+        }
+
+        /*第五页*/
+
+        .page5 {
+            background-image: url(images/5.jpeg);
+            background-size: 100%;
+        }
+
+
+        /*第六页*/
+
+        .page6 {
+            background-image: url(images/6.jpeg);
+            background-size: 100%;
+        }
+
+        /*第七页*/
+
+        .page7 {
+            background-image: url(images/7.jpeg);
+            background-size: 100%;
+        }
+        /*第八页*/
+        .page8 {
+            background-image: url(images/8.jpeg);
+            background-size: 100%;
+        }
+
+    </style>
+</head>
+<body class="loading">
+<div class="main" id="main">
+    <div class="page page1">
+
+    </div>
+    <div class="page page2">
+
+
+    </div>
+    <div class="page page3">
+
+
+    </div>
+    <div class="page page4">
+
+
+    </div>
+    <div class="page page5">
+
+
+    </div>
+    <div class="page page6">
+
+    </div>
+    <div class="page page7">
+
+
+    </div>
+    <div class="page page8">
+
+
+    </div>
+
+</div>
+
+
+<script>
+    $(function () {
+        var $window = $(window);
+        var $wh = $window.height();
+        var $body = $('body');
+        var $main = $('.main');
+        var $responsiveImg = $('.responsiveImg');
+        var $responsiveFallback = false;
+
+        //页面加载时判断是否需要更换图片
+        if ($wh < 790) {
+            responsiveFn1();
+        }
+
+        //浏览器检测，判断是否为高级浏览器
+        if (Modernizr.cssanimations) {
+            $responsiveFallback = false;
+        } else {
+            $responsiveFallback = true;
+        }
+
+        //onepage_scroll方法
+        $main.onepage_scroll({
+            sectionContainer: '.page',
+            responsiveFallback: $responsiveFallback
+        });
+
+        //窗口改变大小切换不同的图片
+        $window.resizeEnd({
+            delay: 500
+        }, function () {
+            var $wh = $window.height();
+            if ($wh < 790) {
+                responsiveFn1();
+            } else {
+                responsiveFn2();
+            }
+        });
+
+        function responsiveFn1() {
+            $body.addClass('responsive-height-lt790')
+            $responsiveImg.each(function () {
+                var $dateSmall = $(this).attr('date-small');
+                $(this).attr('src', $dateSmall);
+            });
+        }
+
+        function responsiveFn2() {
+            $body.removeClass('responsive-height-lt790')
+            $responsiveImg.each(function () {
+                var $dateBig = $(this).attr('date-big');
+                $(this).attr('src', $dateBig);
+            });
+        }
+
+        $('a').click(function () {
+            return false;
+        });
+    });
+
+    //页面加载时的 Loading 效果
+    $(window).load(function () {
+        window.setTimeout(function () {
+            $('body').removeClass('loading');
+        }, 100);
+    });
+</script>
+</body>
+
+</html>

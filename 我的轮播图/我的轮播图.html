@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-2.0.3.js"></script>
+    <title>我的轮播图</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        #container {
+            height: 450px;
+            width: 300px;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #container .carousel {
+            height: 450px;
+            width: 1200px;
+            position: absolute;
+        }
+
+        #container .carousel li {
+            display: inline-block;
+            height: 450px;
+            width: 300px;
+            float: left;
+        }
+
+        #container .carousel li img {
+            height: 450px;
+            width: 300px;
+        }
+
+        #container .btn-left,
+        #container .btn-right {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            width: 20px;
+            background-color: #999;
+            color: #fff;
+            position: absolute;
+        }
+
+        #container .btn-left {
+            top: calc(50% - 15px);
+            left: 0;
+        }
+
+        #container .btn-right {
+            top: calc(50% - 15px);
+            right: 0;
+        }
+
+        /*小圆点*/
+        #point {
+            position: absolute;
+            bottom: 30px;
+            left: calc(50% - 50px);
+        }
+
+        #point li {
+            display: inline-block;
+            height: 15px;
+            width: 15px;
+            margin: 0 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<script>
+    $(function () {
+        var num = 0;
+        var length = $('.carousel li').length - 1;
+//        左边按钮
+        $('.btn-left').click(function () {
+            clearInterval(timer);
+            if (num < length) {
+                num++;
+            } else {
+                num = 0;
+            }
+            $('.carousel').stop().animate({
+                left: -300 * num,
+            }, 100);
+//            自动轮播的时候给小圆点加上样式
+            $('#point li').eq(num).css('background-color', 'red').siblings().css('background-color', '#ddd');
+
+
+        })
+//     右边按钮
+        $('.btn-right').click(function () {
+            clearInterval(timer);
+            if (num > 0) {
+                num--;
+            } else {
+                num = $('.carousel li').length - 1;
+            }
+            $('.carousel').stop().animate({
+                left: -300 * num,
+            }, 100)
+//                 自动轮播的时候给小圆点加上样式
+            $('#point li').eq(num).css('background-color', 'red').siblings().css('background-color', '#ddd');
+        })
+//    自动轮播
+        function setTimer() {
+            if (num < length) {
+                num++;
+            } else {
+                num = 0;
+            }
+            $(".carousel").animate({
+                left: -300 * num + "px"
+            });
+//   自动轮播的时候给小圆点加上样式
+            $('#point li').eq(num).css('background-color', 'red').siblings().css('background-color', '#ddd');
+        }
+
+//      在此处调用函数是为了页面加载的时候可以自动轮播
+        setTimer();
+        var timer = setInterval(setTimer, 2000);
+
+//鼠标移入图片停止自动轮播  移出开始自动轮播
+        $(".carousel").hover(function () {
+            clearInterval(timer);
+        }, function () {
+            timer = setInterval(setTimer, 1000);
+        });
+
+//鼠标移入小圆点的时候切换图片  停止自动轮播
+        $('#point li').mouseover(function () {
+            clearInterval(timer);
+            if (num > 0) {
+                num--;
+            } else {
+                num = $('.carousel li').length - 1;
+            }
+            $('.carousel').stop().animate({
+                left: -300 * num,
+            }, 500);
+            $(this).css('background-color', 'red').siblings().css('background-color', '#ddd');
+        })
+
+    })
+
+
+</script>
+<body>
+<div id="container">
+    <ul class="carousel">
+        <li><img src="images/1.jpg" alt=""></li>
+        <li><img src="images/6.jpg" alt=""></li>
+        <li><img src="images/7.jpg" alt=""></li>
+        <li><img src="images/8.jpg" alt=""></li>
+    </ul>
+    <span class="btn-left">＜</span>
+    <span class="btn-right">＞</span>
+    <ul id="point">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+</body>
+</html>

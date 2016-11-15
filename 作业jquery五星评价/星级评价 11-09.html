@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>jquery星星评价11-09</title>
+    <script src="js/jquery-2.0.3.js"></script>
+    <style>
+       *{
+           padding: 0;
+           border: 0;
+           margin: 0;
+       }
+
+        ul,
+        li {
+            list-style-type: none;
+        }
+
+        .container {
+            height: 600px;
+            width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .container ul {
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        .container ul li {
+            width: 27px;
+            height: 28px;
+            float: left;
+            background: url(img/star.gif) no-repeat 0 0;
+        }
+
+        .container .div1 {
+            font-size: 20px;
+            color: red;
+            text-align: center;
+            position: absolute;
+            top: 40px;
+        }
+
+        .container .div2 {
+            position: absolute;
+            /*top: 0px;*/
+            right: 240px;
+            height: 150px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .container .div2 span {
+            color: red;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="div1"></div>
+    <div class="div2">
+        <span></span><br>
+        <p></p>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        var arr = [
+            '很不满意|卖家态度很差，还骂人、说脏话，简直不把顾客当回事',
+            '不满意|卖家有点不耐烦，承诺的服务也兑现不了',
+            '一般|卖家回复问题很慢，态度一般，谈不上沟通顺畅',
+            '满意|卖家服务挺好的，沟通挺顺畅的，总体满意',
+            '很满意|卖家的服务太棒了，考虑非常周到，完全超出期望值'
+        ];
+//        鼠标经过 离开事件
+        $('ul li').hover(function () {
+            var index = $(this).index();
+            $('li').css('background-position', '0 0');
+            $('li:lt(' + (index + 1) + ')').css('background-position', '0 -29px');
+            $('.div1').html(arr[index].split('|')[0]).css('left', 27 * index + 'px');
+        }, function () {
+            $('.div1').html('');
+        })
+//   星星列表点击事件
+        $('ul li').click(function (e) {
+            e.stopPropagation();
+            var index = $(this).index();
+            $('.div2').show();
+            $('.div2 span').html(arr[index].split('|')[0]);
+            $('.div2 p').html(arr[index].split('|')[1]);
+            $('.div1').html('');
+        })
+//        点击页面空白处评价消失 星星变暗
+        $('body').click(function () {
+            $('.div2').hide();
+            $('li').css('background-position', '0 0');
+        })
+    })
+</script>
+</body>
+
+</html>

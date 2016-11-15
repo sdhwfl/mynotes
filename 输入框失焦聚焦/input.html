@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
+    <script src="js/jquery-2.0.3.js"></script>
+    <title>输入框聚焦失焦事件</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+         ul li{
+             list-style: none;
+         }
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            padding: 0px;
+        }
+
+        .container .content {
+            height: 100px;
+            width: 300px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .myInput {
+            height: 40px;
+            width: 240px;
+            border: solid 1px #666666;
+            border-right: none;
+            text-indent: 1em;
+        }
+
+        .container .content .search {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            width: 60px;
+            display: inline;
+            border: solid 1px #666666;
+            position: absolute;
+            right: 0px;
+        }
+
+        .container .content .search span {
+            display: inline-block;
+            height: 18px;
+            width: 18px;
+            background-image: url("images/before.png");
+            background-repeat: no-repeat;
+        }
+        .container .content .search:hover span{
+            background-image: url("images/after.png");
+            background-repeat: no-repeat;
+        }
+        .container .content .search:hover {
+            background-color: #ff6700;
+            color: #fff;
+            border: solid 1px #ff6700;
+        }
+
+        .container .content .text {
+            height: 40px;
+            line-height: 40px;
+            width: 180px;
+            position: absolute;
+            top: 0;
+            left: 40px;
+        }
+
+        .container .content .text span {
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            width: 80px;
+            border: solid 1px #aaa;
+            margin-left: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .container .content .text span:hover {
+            background-color: #ff6700;
+            color: #fff;
+            border: solid 1px #ff6700;
+        }
+
+        .slideDown {
+            height: 200px;
+            width: 237px;
+            border: solid 1px #ff6700;
+            border-top: none;
+            display: none;
+        }
+        .slideDown ul li{
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            width: 227px;
+            font-size: 12px;
+            margin-left:15px;
+        }
+        .slideDown ul li span:nth-child(2){
+            float: right;
+            margin-right: 20px;
+            color: #aaa;
+        }
+        .active {
+            border: 1px solid #ff6700;
+            border-right: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <input type="text" class="myInput">
+        <div class="search">
+            <span></span>
+        </div>
+        <div class="text">
+            <span>小米mix</span>
+            <span>人工智能电视</span>
+        </div>
+        <div class="slideDown">
+            <ul>
+                <li>
+                    <span>小米空气耳机</span>
+                    <span>约有11件</span>
+                </li>
+                <li>
+                    <span>空气净化器</span>
+                    <span>约有一件</span>
+                </li>
+                <li>
+                    <span>小米路由器</span>
+                    <span>约有8件</span>
+                </li>
+                <li>
+                    <span>小米路由器</span>
+                    <span>约有8件</span>
+                </li>
+                <li>
+                    <span>移动电源</span>
+                    <span>约有21件</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    //    输入框聚焦
+    $('.myInput').focus(function () {
+        $('.text').hide();
+        $('.slideDown').css('display', 'block');
+        $(this).addClass('active');
+//        $('.search').css({'border':'solid 1px orangered','border-left':'none'});
+        $('.search').css('border', 'solid 1px #ff6700')
+    })
+    //输入框失去焦点
+    $('input').blur(function () {
+        $('.text').show();
+        $('.slideDown').css('display', 'none');
+        $(this).removeClass('active');
+        $('.search').css('border', 'solid 1px #aaa')
+    })
+</script>
+</body>
+</html>
